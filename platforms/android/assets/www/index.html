@@ -48,18 +48,8 @@
 <body>
     <div class="app">
         <h1>PhoneGap</h1>
-        <div id="deviceready" class="blink">
-            <p class="event listening">Connecting to Device</p>
-            <p class="event received">Device is Ready</p>
-			<button class="btn btn-primary" onclick="saludar();">SALUDAR</button>
-			
-			<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<!-- Modal -->
+<div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -78,8 +68,19 @@
     </div>
   </div>
 </div>
-			
+        <div id="deviceready" class="blink">
+            <p class="event listening">Connecting to Device</p>
+            <p class="event received">Device is Ready</p>
+			<button class="btn btn-primary" onclick="saludar();">SALUDAR</button>
+			<p id="device"></p>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+			  Launch demo modal
+			</button>
         </div>
+		<button type="button" onclick="ir();" class="btn btn-primary">
+			  sensores
+		</button>
     </div>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
@@ -90,6 +91,10 @@
 		function saludar(){
 		alert('hola mundo');
 		// $('#myModalConect').modal()
+		}
+		function ir(){
+		//var ref = window.open('home.html', '_blank', 'location=yes');
+		location.href="home.html";
 		}
     </script>
 </body>

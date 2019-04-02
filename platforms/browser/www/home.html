@@ -48,53 +48,78 @@
 <body>
     <div class="app">
         <h1>PhoneGap</h1>
-		<!-- Modal -->
-<div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+	
         <div id="deviceready" class="blink">
-            <p class="event listening">Connecting to Device</p>
-            <p class="event received">Device is Ready</p>
-			<button class="btn btn-primary" onclick="saludar();">SALUDAR</button>
-			<p id="device"></p>
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-			  Launch demo modal
-			</button>
+		
+		<div class="form-group">
+		<input type="text" class="form-control" placeholder="NUMERO" id="numero"/>
+		</div>
+		
+		
+		<div class="btn-group" role="group" aria-label="Basic example">
+		  <button type="button" class="btn btn-secondary">Bateria</button>
+		  <button type="button" class="btn btn-danger">Conexion</button>
+		  <button type="button" onclick="mostrarContactos();" class="btn btn-info">Contactos</button>
+		  <button type="button" onclick="volver();" class="btn btn-warning">Volver</button>
+		</div>
+		
+		<table id='myTable' border='1'>
+		<tr>
+		<td>displayName</td>
+		<td>name</td>
+		</tr>
+		</table>
+			
         </div>
-		<button type="button" onclick="ir();" class="btn btn-primary">
-			  sensores
-		</button>
     </div>
+		<div class="input-group">
+		  <div class="input-group-prepend">
+			<span class="input-group-text">With textarea</span>
+		  </div>
+		  <textarea class="form-control" aria-label="With textarea"></textarea>
+		</div>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 	<!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
         app.initialize();
-		function saludar(){
-		alert('hola mundo');
-		// $('#myModalConect').modal()
-		}
-		function ir(){
+		<!--CONTACTOS-->
+		function mostrarContactos() {
+                var options = new ContactFindOptions();
+				var telefono=document.getElementById("numero").value;
+				var fields = ["displayName", "name"];
+				if(telefono.length>0){
+				options.filter = telefono;
+				fields = ["displayName", "phoneNumbers"];
+				//options.hasPhoneNumber =true;
+				//options.filter = "maria";
+				}
+				options.multiple=true;
+                navigator.contacts.find(fields, onSuccess, onError, options);
+            }
+            // onSuccess: Get a snapshot of the current contacts
+            function onSuccess(contacts) {
+			console.log("Contactos = " + contacts.length);
+			alert('cantidad:'+contacts.length);
+                var table = document.getElementById("myTable");
+				for (var i = 0; i < contacts.length; i++) {
+                    console.log("Display Name = " + contacts[i].displayName);
+					var row = table.insertRow(0);
+					var cell1 = row.insertCell(0);
+					var cell2 = row.insertCell(1);
+					cell1.innerHTML = "Name";
+					cell2.innerHTML = contacts[i].displayName;
+                }
+            }
+            // onError: Failed to get the contacts
+            function onError(contactError) {
+                alert('onError!');
+            }
+			<!--CONTACTOS-->
+		function volver(){
 		//var ref = window.open('home.html', '_blank', 'location=yes');
-		location.href="home.html";
+		location.href="/index.html";
 		}
     </script>
 </body>

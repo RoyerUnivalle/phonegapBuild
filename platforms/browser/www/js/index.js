@@ -33,7 +33,10 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+		document.getElementById('device').innerHTML = device.manufacturer + ' ' + device.model;
         app.receivedEvent('deviceready');
+		window.addEventListener('batterystatus', app.onBatteryStatus, false);
+        window.addEventListener('batterycritical', app.onBatteryCritical, false);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -45,5 +48,13 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+    }
+	onBatteryStatus: function(evt) {
+        // Manejar el evento
+        alert("Carga: " + evt.level + "%; Enchufado: " + evt.isPlugged);
+    },
+    onBatteryCritical: function(evt) {
+        // Que hacer cuando llegue a nivel critico
+        alert("Nivel de bateria critico " + evt.level + "%\nBuscar enchufe!");
     }
 };
